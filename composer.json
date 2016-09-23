@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "VeryBuy\\Payment\\EsunBank\\Acq\\": "src/"
+            "VeryBuy\\Payment\\EsunBank\\Acq\\CardLink\\": "src/"
         },
         "files": [
             "src/helpers.php"
@@ -29,7 +29,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Payment\\EsunBank\\Acq\\": "tests/"
+            "Tests\\Payment\\EsunBank\\Acq\\CardLink\\": "tests/"
         }
     },
     "minimum-stability": "dev",
