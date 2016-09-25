@@ -8,8 +8,8 @@
     ],
     "require": {
         "php": ">=5.6.4",
-        "illuminate/config": "~5.3",
-        "illuminate/support": "~5.3",
+        "illuminate/config": "~5.3 || ~5.2",
+        "illuminate/support": "~5.3 || ~5.2",
         "nesbot/carbon": "~1.20",
         "guzzlehttp/guzzle": "~6.2"
     },
