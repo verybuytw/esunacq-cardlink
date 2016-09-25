@@ -10,7 +10,8 @@
         "php": ">=5.6.4",
         "illuminate/config": "~5.3",
         "illuminate/support": "~5.3",
-        "nesbot/carbon": "~1.20"
+        "nesbot/carbon": "~1.20",
+        "guzzlehttp/guzzle": "~6.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

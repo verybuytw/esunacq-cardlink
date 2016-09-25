@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Payment\EsunBank\Acq;
+namespace Tests\Payment\EsunBank\Acq\CardLink;
 
 use PHPUnit_Framework_TestCase;
 
