@@ -12,7 +12,7 @@ trait BuilderHashKeyTrait
     /**
      * @param string $hashKey
      *
-     * @return static::class
+     * @return self
      */
     public function setHashKey($hashKey)
     {
