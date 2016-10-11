@@ -4,6 +4,7 @@ namespace VeryBuy\Payment\EsunBank\Acq\CardLink\Response;
 
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Response;
+use InvalidArgumentException;
 use VeryBuy\Payment\EsunBank\Acq\CardLink\Response\ResponseMessageTrait as ResponseMessage;
 
 abstract class ResponseContract
@@ -32,6 +33,10 @@ abstract class ResponseContract
      */
     public function __construct($response)
     {
+        if (is_null($response)) {
+            throw new InvalidArgumentException('response contract can not put null in construct.');
+        }
+
         if ($response instanceof RequestException) {
             $this->exception = $response;
             $response = $response->getResponse();

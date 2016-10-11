@@ -7,7 +7,7 @@ class QueryResponse extends ResponseContract
     /**
      * @return array
      */
-    public function info()
+    public function getInfo()
     {
         return $this->getResult();
     }

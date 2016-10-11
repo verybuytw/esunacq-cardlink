@@ -11,7 +11,7 @@ class AuthorizeRequest extends RequestContract
     {
         return $this->getOptions()
 //            ->merge([
-//            'BPF' => 'N',
+//                'BPF' => 'N',
 //            ])
             ->all();
     }

@@ -7,7 +7,7 @@ class TradeResponse extends ResponseContract
     /**
      * @return string
      */
-    public function key()
+    public function getTradeKey()
     {
         return $this->getResult()['TKey'];
     }

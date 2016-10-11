@@ -23,4 +23,14 @@ class AuthorizeResponse extends ResponseContract
     {
         return $this->getResult()['returnCode'];
     }
+
+    /**
+     * @return string
+     */
+    public function getOrderNumber()
+    {
+        $detail = $this->getResult()['txnData'];
+
+        return $detail['ONO'];
+    }
 }

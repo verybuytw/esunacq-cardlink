@@ -7,7 +7,7 @@ class CommunicateResponse extends ResponseContract
     /**
      * @return string
      */
-    public function token()
+    public function getVerifyToken()
     {
         return $this->getResult()['txToken'];
     }
