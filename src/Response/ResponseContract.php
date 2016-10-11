@@ -96,8 +96,6 @@ abstract class ResponseContract
             ->getBody()
             ->getContents();
 
-        dump($contents);
-
         $this->result = $this->parse($contents);
 
         return $this;

@@ -107,8 +107,6 @@ class RequestBuilder implements CardLinkContract, EncryptInterface
                 $response = $e->getResponse();
             }
 
-            dump($params);
-
             return new TradeResponse($response);
         };
 
@@ -150,8 +148,6 @@ class RequestBuilder implements CardLinkContract, EncryptInterface
             } catch (RequestException $e) {
                 $response = $e->getResponse();
             }
-
-            dump($params);
 
             return new AuthorizeResponse($response);
         };

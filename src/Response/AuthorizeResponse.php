@@ -11,8 +11,6 @@ class AuthorizeResponse extends ResponseContract
      */
     protected function parse($contents)
     {
-        dump($contents);
-
         list($name, $contents) = explode('=', $contents);
 
         return json_decode($contents, true);
