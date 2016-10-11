@@ -40,6 +40,18 @@ class RequestBuilderTest extends AbstractTestCase
          * (測試) https://cardtest.esunbank.com.tw/EsunCreditweb/txnproc/cardLink/linkQuery
          *
          */
+
+        /*
+         * 授權
+         * (正式) https://acq.esunbank.com.tw/ACQTrans/esuncard/txnf013c
+         * (測試) https://acqtest.esunbank.com.tw/ACQTrans/esuncard/txnf013c
+         *
+         * 取消授權
+         * (正式) https://acq.esunbank.com.tw/ACQTrans/esuncard/txnf0150
+         * (測試) https://acqtest.esunbank.com.tw/ACQTrans/esuncard/txnf0150
+         *
+         */
+
         $this->builder = new RequestBuilder(self::VERIFY_MAC);
     }
 
@@ -49,7 +61,7 @@ class RequestBuilderTest extends AbstractTestCase
             'https://cardtest.esunbank.com.tw/EsunCreditweb/txnproc/cardLink/commVerify', [
             'SID' => $this->SID,
             'SKey' => $this->SKey,
-        ], function($params) {
+        ], function ($params) {
             return $params;
         });
 
@@ -59,14 +71,14 @@ class RequestBuilderTest extends AbstractTestCase
         $this->assertArrayHasKey('TxnTp', json_decode($communicate['data'], true));
     }
 
-    public function testRequestBuilderWhenRegisterForm()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+    public function testRequestBuilderWhenRegisterForm()
     {
         $registerForm = $this->builder->registerForm(
             'https://cardtest.esunbank.com.tw/EsunCreditweb/txnproc/cardLink/rgstACC', [
             'SID' => $this->SID,
             'SKey' => $this->SKey,
             'txToken' => 'THIS IS TEST TOKEN',
-        ], function($params) {
+        ], function ($params) {
             return $params;
         });
 
@@ -76,7 +88,7 @@ class RequestBuilderTest extends AbstractTestCase
         $this->assertArrayHasKey('txToken', json_decode($registerForm['data'], true));
     }
 
-    public function testRequestBuilderWhenTrade()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+    public function testRequestBuilderWhenTrade()
     {
         $registerForm = $this->builder->trade(
             'https://cardtest.esunbank.com.tw/EsunCreditweb/txnproc/cardLink/tknService', [
@@ -88,7 +100,7 @@ class RequestBuilderTest extends AbstractTestCase
             'TxnAmt' => 1000,
             'TxnDesc' => 'test description',
             'rData' => 'transfer trade data',
-        ], function($params) {
+        ], function ($params) {
             return $params;
         });
 
