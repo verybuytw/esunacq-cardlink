@@ -57,7 +57,7 @@ class RequestBuilderTest extends AbstractTestCase
 
     public function testRequestBuilderWhenCommunicate()
     {
-        $communicate = $this->builder->communicate(
+        $response = $this->builder->communicate(
             'https://cardtest.esunbank.com.tw/EsunCreditweb/txnproc/cardLink/commVerify', [
             'SID' => $this->SID,
             'SKey' => $this->SKey,
@@ -65,15 +65,14 @@ class RequestBuilderTest extends AbstractTestCase
             return $params;
         });
 
-        $this->assertArrayHasKey('data', $communicate);
-        $this->assertArrayHasKey('ksn', $communicate);
-        $this->assertArrayHasKey('mac', $communicate);
-        $this->assertArrayHasKey('TxnTp', json_decode($communicate['data'], true));
+        $this->assertArrayHasKey('data', $response);
+        $this->assertArrayHasKey('ksn', $response);
+        $this->assertArrayHasKey('mac', $response);
     }
 
     public function testRequestBuilderWhenRegisterForm()
     {
-        $registerForm = $this->builder->registerForm(
+        $response = $this->builder->registerForm(
             'https://cardtest.esunbank.com.tw/EsunCreditweb/txnproc/cardLink/rgstACC', [
             'SID' => $this->SID,
             'SKey' => $this->SKey,
@@ -82,15 +81,14 @@ class RequestBuilderTest extends AbstractTestCase
             return $params;
         });
 
-        $this->assertArrayHasKey('data', $registerForm);
-        $this->assertArrayHasKey('ksn', $registerForm);
-        $this->assertArrayHasKey('mac', $registerForm);
-        $this->assertArrayHasKey('txToken', json_decode($registerForm['data'], true));
+        $this->assertArrayHasKey('data', $response);
+        $this->assertArrayHasKey('ksn', $response);
+        $this->assertArrayHasKey('mac', $response);
     }
 
     public function testRequestBuilderWhenTrade()
     {
-        $registerForm = $this->builder->trade(
+        $response = $this->builder->trade(
             'https://cardtest.esunbank.com.tw/EsunCreditweb/txnproc/cardLink/tknService', [
             'SID' => $this->SID,
             'SKey' => $this->SKey,
@@ -104,9 +102,24 @@ class RequestBuilderTest extends AbstractTestCase
             return $params;
         });
 
-        $this->assertArrayHasKey('data', $registerForm);
-        $this->assertArrayHasKey('ksn', $registerForm);
-        $this->assertArrayHasKey('mac', $registerForm);
-        $this->assertArrayHasKey('txToken', json_decode($registerForm['data'], true));
+        $this->assertArrayHasKey('data', $response);
+        $this->assertArrayHasKey('ksn', $response);
+        $this->assertArrayHasKey('mac', $response);
+    }
+
+    public function testRequestBuilderWhenQuery()
+    {
+    }
+
+    public function testRequestBuilderWhenCancel()
+    {
+    }
+
+    public function testRequestBuilderWhenAuthorize()
+    {
+    }
+
+    public function testRequestBuilderWhenUnauthorize()
+    {
     }
 }
