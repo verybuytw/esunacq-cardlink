@@ -45,7 +45,7 @@ abstract class ResponseContract
      *
      * @return ResponseContract
      */
-    protected function setResponse(Response $response)
+    protected function setResponse($response)
     {
         $this->response = $response;
 
