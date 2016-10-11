@@ -6,6 +6,7 @@ use Closure;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Collection;
+use VeryBuy\Payment\EsunBank\Acq\CardLink\BuilderAuthorizeTrait as Authorize;
 use VeryBuy\Payment\EsunBank\Acq\CardLink\BuilderEncryptTrait as Encrypt;
 use VeryBuy\Payment\EsunBank\Acq\CardLink\BuilderHashKeyTrait as HashKey;
 use VeryBuy\Payment\EsunBank\Acq\CardLink\BuilderOptionsTrait as Options;
@@ -23,7 +24,7 @@ use VeryBuy\Payment\EsunBank\Acq\CardLink\Response\TradeResponse;
 
 class RequestBuilder implements CardLinkContract, EncryptInterface
 {
-    use HashKey, Options, Encrypt;
+    use HashKey, Options, Encrypt, Authorize;
 
     /**
      * @param string $MAC
@@ -129,27 +130,6 @@ class RequestBuilder implements CardLinkContract, EncryptInterface
             }
 
             return new QueryResponse($response);
-        };
-
-        return static::response($request, [$next, $callback]);
-    }
-
-    public function authorize($targetUrl, $options, Closure $callback = null)
-    {
-        $this->setOptions($options);
-
-        $request = (new AuthorizeRequest(static::getOptions()));
-
-        $next = function ($params) use ($targetUrl) {
-            try {
-                $response = (new Client())->request(
-                    'POST', $targetUrl, ['form_params' => $params]
-                );
-            } catch (RequestException $e) {
-                $response = $e->getResponse();
-            }
-
-            return new AuthorizeResponse($response);
         };
 
         return static::response($request, [$next, $callback]);
