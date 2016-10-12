@@ -112,13 +112,11 @@ $  composer require vb-payment/esunacq-cardlink
     ]);
 
     if ($trade->isSuccessful()) {
-        dump($trade->getTradeToken());
+        print_r($trade->getTradeToken());
     }
 ```
 
 #### 請求授權
-> 時效性 `300` 秒
-
 ```php
 <?php
     use VeryBuy\Payment\EsunBank\Acq\CardLink\RequestBuilder;
@@ -143,6 +141,6 @@ $  composer require vb-payment/esunacq-cardlink
     ]);
 
     if ($authorize->isSuccessful()) {
-        dump($trade->getOrderNumber());
+        print_r($trade->getOrderNumber());
     }
 ```
