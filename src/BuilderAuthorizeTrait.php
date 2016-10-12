@@ -7,6 +7,8 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use VeryBuy\Payment\EsunBank\Acq\CardLink\Request\AuthorizeRequest;
 use VeryBuy\Payment\EsunBank\Acq\CardLink\Response\AuthorizeResponse;
+use VeryBuy\Payment\EsunBank\Acq\CardLink\Request\UnauthorizeRequest;
+use VeryBuy\Payment\EsunBank\Acq\CardLink\Response\UnauthorizeResponse;
 
 trait BuilderAuthorizeTrait
 {
