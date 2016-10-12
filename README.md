@@ -120,6 +120,7 @@ $  composer require vb-payment/esunacq-cardlink
 ```php
 <?php
     use VeryBuy\Payment\EsunBank\Acq\CardLink\RequestBuilder;
+    use VeryBuy\Payment\EsunBank\Acq\CardLink\Request\AuthorizeRequest;
 
     // $mac 由玉山銀行提供`交易`用的押碼
     $builder = new RequestBuilder($mac);
