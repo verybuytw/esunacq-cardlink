@@ -49,8 +49,8 @@ $  composer require vb-payment/esunacq-cardlink
      * $SKey 使用者編號
      * $targetUrl 玉山 API 接口
      *
-     * production: https://card.esunbank.com.tw/EsunCreditweb/txnproc/cardLink/
-     * testing: https://cardtest.esunbank.com.tw/EsunCreditweb/txnproc/cardLink/
+     * production: https://card.esunbank.com.tw/EsunCreditweb/txnproc/cardLink
+     * testing: https://cardtest.esunbank.com.tw/EsunCreditweb/txnproc/cardLink
      *
      */
     echo $builder->registerForm($targetUrl, [
@@ -86,7 +86,7 @@ $  composer require vb-payment/esunacq-cardlink
 
 ```php
 <?php
-    use VeryBuy\Payment\EsunBank\Acq\CardLink\Response\RegisterFormResponse;
+    use VeryBuy\Payment\EsunBank\Acq\CardLink\RequestBuilder;
 
     // $mac 由玉山銀行提供`註冊`用的押碼
     $builder = new RequestBuilder($mac);
@@ -116,3 +116,33 @@ $  composer require vb-payment/esunacq-cardlink
     }
 ```
 
+#### 請求授權
+> 時效性 `300` 秒
+
+```php
+<?php
+    use VeryBuy\Payment\EsunBank\Acq\CardLink\RequestBuilder;
+
+    // $mac 由玉山銀行提供`交易`用的押碼
+    $builder = new RequestBuilder($mac);
+
+    /**
+     * $MID 商家代碼 ( 等同於註冊時的 SID )
+     * $targetUrl 玉山 API 接口
+     *
+     * production: https://acq.esunbank.com.tw/ACQTrans/esuncard/txnf013c
+     * testing: https://acqtest.esunbank.com.tw/ACQTrans/esuncard/txnf013c
+     *
+     */
+    $authorize= $builder->authorize($targetUrl, [
+        'MID' => $MID,
+        'TID' => AuthorizeRequest::TYPE_TRANSACTION,
+        'ONO' => sprintf('TO%08d', 3), // 訂單編號，不可重複，不可包含【_】字元，英數限用大寫 length:50
+        'TA' => 1000, // 訂單金額
+        'TK' => $trade->getTradeToken(),
+    ]);
+
+    if ($authorize->isSuccessful()) {
+        dump($trade->getOrderNumber());
+    }
+```
