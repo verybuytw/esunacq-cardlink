@@ -145,3 +145,29 @@ $  composer require vb-payment/esunacq-cardlink
         print_r($trade->getOrderNumber());
     }
 ```
+
+#### 取消授權
+```php
+<?php
+    use VeryBuy\Payment\EsunBank\Acq\CardLink\RequestBuilder;
+
+    // $mac 由玉山銀行提供`交易`用的押碼
+    $builder = new RequestBuilder($mac);
+
+    /**
+     * $MID 商家代碼 ( 等同於註冊時的 SID )
+     * $targetUrl 玉山 API 接口
+     *
+     * production: https://acq.esunbank.com.tw/ACQTrans/esuncard/txnf0150
+     * testing: https://acqtest.esunbank.com.tw/ACQTrans/esuncard/txnf0150
+     *
+     */
+    $unauthorize = $builder->unauthorize($targetUrl, [
+        'MID' => $MID,
+        'ONO' => sprintf('TO%08d', 3),
+    ]);
+
+    if ($unauthorize->isSuccessful()) {
+        print_r($unauthorize->getOrderNumber());
+    }
+```
