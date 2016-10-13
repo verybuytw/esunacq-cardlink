@@ -3,7 +3,7 @@
 $  composer require vb-payment/esunacq-cardlink
 ```
 
-#### 取得通訊鍵值 (txToken)
+#### 取得通訊鍵值 (txToken)
 > 在每個 `request` 訪問前都需要問一次 `txToken`
 >
 > 時效性 `300` 秒
