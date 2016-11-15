@@ -81,7 +81,7 @@ class RequestBuilder implements CardLinkContract, EncryptInterface
             return sprintf(
                 '<form id="%s" method="POST" action="%s">%s%s</form>%s',
                 $uid,
-                'https://cardtest.esunbank.com.tw/EsunCreditweb/txnproc/cardLink/rgstACC',
+                $targetUrl,
                 $inputs,
                 $submit,
                 $script

@@ -3,7 +3,7 @@
 $  composer require vb-payment/esunacq-cardlink
 ```
 
-#### 取得通訊鍵值 (txToken)
+#### 取得通訊鍵值 (txToken)
 > 在每個 `request` 訪問前都需要問一次 `txToken`
 >
 > 時效性 `300` 秒
@@ -49,8 +49,8 @@ $  composer require vb-payment/esunacq-cardlink
      * $SKey 使用者編號
      * $targetUrl 玉山 API 接口
      *
-     * production: https://card.esunbank.com.tw/EsunCreditweb/txnproc/cardLink
-     * testing: https://cardtest.esunbank.com.tw/EsunCreditweb/txnproc/cardLink
+     * production: https://card.esunbank.com.tw/EsunCreditweb/txnproc/cardLink/rgstACC
+     * testing: https://cardtest.esunbank.com.tw/EsunCreditweb/txnproc/cardLink/rgstACC
      *
      */
     echo $builder->registerForm($targetUrl, [
@@ -106,7 +106,7 @@ $  composer require vb-payment/esunacq-cardlink
         'txToken' => $communicate->getVerifyToken(),
         'LKey' => $response->getAccessToken(),
         'OrderNo' => sprintf('TO%08d', 3), // 訂單編號 length:50
-        'TxnAmt' => 1000,	// 訂單金額
+        'TxnAmt' => 1000,   // 訂單金額
         'TxnDesc' => '顯示在 CardLink 頁面上',
         'rData' => '提供商家傳值，原封不動回傳 length:200',
     ]);
