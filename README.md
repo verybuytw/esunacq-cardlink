@@ -24,9 +24,20 @@ $  composer require vb-payment/esunacq-cardlink
      * production: https://card.esunbank.com.tw/EsunCreditweb/txnproc/cardLink/commVerify
      * testing: https://cardtest.esunbank.com.tw/EsunCreditweb/txnproc/cardLink/commVerify
      */
+//    單一商店
+//    $communicate = $builder->communicate($targetUrl, [
+//        'SID' => $SID,
+//        'SKey' => $SKey,
+//    ]);
+
+    /**
+     * 多商店版本
+     */
     $communicate = $builder->communicate($targetUrl, [
-        'SID' => $SID,
+        'SID' => '{專案代碼}',
         'SKey' => $SKey,
+        'PRJCD' => 'C001',
+        'PRJINFO' => $SID
     ]);
 
     if ($communicate->isSuccessful()) {
@@ -53,8 +64,19 @@ $  composer require vb-payment/esunacq-cardlink
      * testing: https://cardtest.esunbank.com.tw/EsunCreditweb/txnproc/cardLink/rgstACC
      *
      */
+//    單一商店
+//    echo $builder->registerForm($targetUrl, [
+//        'SID' => $SID,
+//        'SKey' => $SKey,
+//        'txToken' => $communicate->getVerifyToken(),
+//        'rData' => '提供商家傳值，原封不動回傳 length:200',
+//    ]);
+
+    /**
+     * 多商店版本
+     */
     echo $builder->registerForm($targetUrl, [
-        'SID' => $SID,
+        'SID' => '{專案代碼}',
         'SKey' => $SKey,
         'txToken' => $communicate->getVerifyToken(),
         'rData' => '提供商家傳值，原封不動回傳 length:200',
@@ -100,8 +122,23 @@ $  composer require vb-payment/esunacq-cardlink
      * testing: https://cardtest.esunbank.com.tw/EsunCreditweb/txnproc/cardLink/tknService
      *
      */
+//    單一商店
+//    $trade = $builder->trade($targetUrl, [
+//        'SID' => $SID,
+//        'SKey' => $SKey,
+//        'txToken' => $communicate->getVerifyToken(),
+//        'LKey' => $response->getAccessToken(),
+//        'OrderNo' => sprintf('TO%08d', 3), // 訂單編號 length:50
+//        'TxnAmt' => 1000,   // 訂單金額
+//        'TxnDesc' => '顯示在 CardLink 頁面上',
+//        'rData' => '提供商家傳值，原封不動回傳 length:200',
+//    ]);
+
+    /**
+     * 多商店版本
+     */
     $trade = $builder->trade($targetUrl, [
-        'SID' => $SID,
+        'SID' => '{專案代碼}',
         'SKey' => $SKey,
         'txToken' => $communicate->getVerifyToken(),
         'LKey' => $response->getAccessToken(),
@@ -133,12 +170,26 @@ $  composer require vb-payment/esunacq-cardlink
      * testing: https://acqtest.esunbank.com.tw/ACQTrans/esuncard/txnf013c
      *
      */
+//    單一商店
+//    $authorize= $builder->authorize($targetUrl, [
+//        'MID' => $MID,
+//        'TID' => AuthorizeRequest::TYPE_TRANSACTION,
+//        'ONO' => sprintf('TO%08d', 3), // 訂單編號，不可重複，不可包含【_】字元，英數限用大寫 length:50
+//        'TA' => 1000, // 訂單金額
+//        'TK' => $trade->getTradeToken(),
+//    ]);
+
+    /**
+     * 多商店版本
+     */
     $authorize= $builder->authorize($targetUrl, [
         'MID' => $MID,
         'TID' => AuthorizeRequest::TYPE_TRANSACTION,
         'ONO' => sprintf('TO%08d', 3), // 訂單編號，不可重複，不可包含【_】字元，英數限用大寫 length:50
         'TA' => 1000, // 訂單金額
         'TK' => $trade->getTradeToken(),
+        'SID' => '{專案代碼}',
+        'PRJCD' => 'C001',
     ]);
 
     if ($authorize->isSuccessful()) {
