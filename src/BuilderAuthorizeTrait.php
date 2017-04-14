@@ -12,16 +12,20 @@ use VeryBuy\Payment\EsunBank\Acq\CardLink\Response\UnauthorizeResponse;
 
 trait BuilderAuthorizeTrait
 {
-    public function authorize($targetUrl, $options, Closure $callback = null)
+    public function authorize($targetUrl, $options, Closure $callback = null, $proxy = null)
     {
         $this->setOptions($options);
 
         $request = (new AuthorizeRequest(static::getOptions()));
 
-        $next = function ($params) use ($targetUrl) {
+        $next = function ($params) use ($targetUrl, $proxy) {
             try {
+                $request_arguments = ['form_params' => $params];
+                if ($proxy) {
+                    $request_arguments['proxy'] = $proxy;
+                }
                 $response = (new Client())->request(
-                    'POST', $targetUrl, ['form_params' => $params]
+                    'POST', $targetUrl, $request_arguments
                 );
             } catch (RequestException $e) {
                 $response = $e->getResponse();
@@ -33,16 +37,20 @@ trait BuilderAuthorizeTrait
         return static::response($request, [$next, $callback]);
     }
 
-    public function unauthorize($targetUrl, $options, Closure $callback = null)
+    public function unauthorize($targetUrl, $options, Closure $callback = null, $proxy = null)
     {
         $this->setOptions($options);
 
         $request = (new UnauthorizeRequest(static::getOptions()));
 
-        $next = function ($params) use ($targetUrl) {
+        $next = function ($params) use ($targetUrl, $proxy) {
             try {
+                $request_arguments = ['form_params' => $params];
+                if ($proxy) {
+                    $request_arguments['proxy'] = $proxy;
+                }
                 $response = (new Client())->request(
-                    'POST', $targetUrl, ['form_params' => $params]
+                    'POST', $targetUrl, $request_arguments
                 );
             } catch (RequestException $e) {
                 $response = $e->getResponse();

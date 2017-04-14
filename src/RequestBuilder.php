@@ -33,22 +33,27 @@ class RequestBuilder implements CardLinkContract, EncryptInterface
     }
 
     /**
-     * @param string       $targetUrl
-     * @param array        $options
-     * @param Closure|null $callback
+     * @param string              $targetUrl
+     * @param array               $options
+     * @param Closure|null        $callback
+     * @param string|array|null   $proxy
      *
      * @return CommunicateResponse
      */
-    public function communicate($targetUrl, $options, Closure $callback = null)
+    public function communicate($targetUrl, $options, Closure $callback = null, $proxy = null)
     {
         $this->setOptions($options);
 
         $request = (new CommunicateRequest(static::getOptions()));
 
-        $next = function ($params) use ($targetUrl) {
+        $next = function ($params) use ($targetUrl, $proxy) {
             try {
+                $request_arguments = ['form_params' => $params];
+                if ($proxy) {
+                    $request_arguments['proxy'] = $proxy;
+                }
                 $response = (new Client())->request(
-                    'POST', $targetUrl, ['form_params' => $params]
+                    'POST', $targetUrl, $request_arguments
                 );
             } catch (RequestException $e) {
                 $response = $e->getResponse();
@@ -91,16 +96,20 @@ class RequestBuilder implements CardLinkContract, EncryptInterface
         return static::response($request, [$next, $callback]);
     }
 
-    public function trade($targetUrl, $options, Closure $callback = null)
+    public function trade($targetUrl, $options, Closure $callback = null, $proxy = null)
     {
         $this->setOptions($options);
 
         $request = (new TradeRequest(static::getOptions()));
 
-        $next = function ($params) use ($targetUrl) {
+        $next = function ($params) use ($targetUrl, $proxy) {
             try {
+                $request_arguments = ['form_params' => $params];
+                if ($proxy) {
+                    $request_arguments['proxy'] = $proxy;
+                }
                 $response = (new Client())->request(
-                    'POST', $targetUrl, ['form_params' => $params]
+                    'POST', $targetUrl, $request_arguments
                 );
             } catch (RequestException $e) {
                 $response = $e->getResponse();
@@ -112,16 +121,20 @@ class RequestBuilder implements CardLinkContract, EncryptInterface
         return static::response($request, [$next, $callback]);
     }
 
-    public function query($targetUrl, $options, Closure $callback = null)
+    public function query($targetUrl, $options, Closure $callback = null, $proxy = null)
     {
         $this->setOptions($options);
 
         $request = (new QueryRequest(static::getOptions()));
 
-        $next = function ($params) use ($targetUrl) {
+        $next = function ($params) use ($targetUrl, $proxy) {
             try {
+                $request_arguments = ['form_params' => $params];
+                if ($proxy) {
+                    $request_arguments['proxy'] = $proxy;
+                }
                 $response = (new Client())->request(
-                    'POST', $targetUrl, ['form_params' => $params]
+                    'POST', $targetUrl, $request_arguments
                 );
             } catch (RequestException $e) {
                 $response = $e->getResponse();
